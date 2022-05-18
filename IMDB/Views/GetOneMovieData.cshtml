@@ -1,0 +1,67 @@
+﻿@model Movie
+
+@{
+    ViewData["Title"] = "Movie Details";
+}
+
+<div class="row">
+  
+        <div class="col-md-8  off-set-2">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header">
+                            <p class="card-text">
+                                <h5 class="card-title">
+                                    @Model.name
+                                    
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="@Model.imageURL" width="100%" alt="@Model.name">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <p class="card-text">@Model.name</p>
+                            <p class="card-text">
+                                 <b>Director : </b>
+                                 <a  asp-controller="Director" asp-action="GetOneDirectorData" asp-route-DirectorID="@Model.ID">
+                                 @Model.Director.Fname
+                                 @Model.Director.Lname
+                                 </a>
+                            </p>
+
+                            <p class="card-text">
+                                 <b>Actors : </b>
+                                 <hr />
+                                 <div class="row">
+                                     @foreach (var actor in Model.Actors_Movies)
+                                    {
+                                        <div class="column text-center">
+                                             <img class="border-info rounded-circle" src="@actor.Actor.profilepicURL" style="max-width: 150px" />
+                                             <br />
+                                             <a asp-controller="Actors" asp-action="GetOneActorData" asp-route-ActorID="@actor.ActorId">@actor.Actor.Fname</a>
+                                        </div>
+                                    }
+                                 </div>
+                            </p>
+
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer ">
+                            <p class="card-text">
+                                <a class="btn btn-outline-primary float-right"  asp-controller="Movies" asp-action="Index" >
+                                    <i ></i> Back to list
+                                </a>
+                                </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+</div>

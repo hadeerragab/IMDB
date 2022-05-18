@@ -1,60 +1,86 @@
-﻿@model IEnumerable<Director>
+﻿@model IEnumerable<Movie>
 
 @{
-    ViewData["Title"] = "List of Directors";
+    ViewData["Title"] = "List of Actors";
 }
 
 <div class="row">
-    <div class="col-md-8 offset-md-2">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4  border-primary  mb-3">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header text-white bg-info">
+                            <p class="card-text">
+                                <h5 class="card-title">
+                                    @item.name
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="@item.imageURL" width="100%" alt="@item.name">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <p class="card-text">@item.name</p>
+                             <p class="card-text"><b>Director : </b>@item.Director.Fname</p>
 
-        <table class="table">
-            <thead>
-                <tr class="text-center">
-                    <th>@Html.DisplayNameFor(model => model.profilepicURL)</th>
-                    <th>@Html.DisplayNameFor(model => model.Fname)</th>
-                    <th>@Html.DisplayNameFor(model => model.Lname)</th>
-                    <th>@Html.DisplayNameFor(model => model.age)</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-               {
-                 <tr>
-                    <td class="align-middle">
-                        <img class="rounded-circle" src="@item.profilepicURL"  style="max-width: 150px" />
-                    </td>
-                    <td class="align-middle">
-                        @Html.DisplayFor(modelItem => item.Fname)
-                    </td>
-                     <td class="align-middle">
-                        @Html.DisplayFor(modelItem => item.Lname)
-                    </td>
-                    <td class="align-middle">
-                        @Html.DisplayFor(modelItem => item.age)
-                    </td>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer ">
+                            <p class="card-text">
 
-                        @if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-                        {
-                            <td class="align-middle">
-                            <a class="btn btn-outline-primary" asp-controller="Director" asp-action="UpDateDirectorData" asp-route-DirectorID="@item.ID"><i ></i>Edit </a> |
-                            <a class="btn btn-outline-info" asp-controller="Director" asp-action="GetOneDirectorData" asp-route-DirectorID="@item.ID"><i ></i>Details </a> |
-                            <a class="btn btn-danger text-white"  asp-controller="Director" asp-action="DeleteDirector" asp-route-DirectorID="@item.ID" ><i ></i>Delete </a>
-                            </td>
-                        }
+                                <div>
+                                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                                    <style>
+                                    .fa {
+                                         font-size: 50px;
+                                         cursor: pointer;
+                                         user-select: none;
+                                        }
+                                    .fa:hover {
+                                         color: darkblue;
+                                        }
+                                     </style>
+                                    <i onclick="myFunction(this)" class="fa fa-thumbs-up"></i>
+                                </div>
+                               
+              
 
-                </tr>
-               }
-               
-            </tbody>
+                                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                  {
+                                        <a class="btn btn-outline-primary float-right"  asp-controller="Movies" asp-action="UpDateMovie" asp-route-MovieID="@item.ID" >
+                                        <i class="bi bi-eye-fill" ></i> UPDATE
+                                        </a>
+                                  }
 
-        </table>
-
-    </div>
+                                <a class="btn btn-outline-primary float-right"  asp-controller="Movies" asp-action="GetOneMovieData" asp-route-MovieID="@item.ID" >
+                                    <i class="bi bi-eye-fill" ></i> Show Details
+                                </a>
+                                </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </div>
 
- @if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 {
-    <div class="text-white">
-    <a asp-controller="Director" asp-action="CreateDirector" class="btn btn-success "> <i >Add New Director </i></a>
-    </div>
+   <div class="text-white">
+    <a asp-controller="Movies" asp-action="CreateMovie" class="btn btn-success "> <i >Add New Movie</i></a>
+   </div> 
 }
+
+ <script>
+  function myFunction(x) {
+  x.classList.toggle("fa-thumbs-down");
+  }
+  </script>
+
+  
