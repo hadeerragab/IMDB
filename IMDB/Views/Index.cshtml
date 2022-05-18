@@ -1,0 +1,63 @@
+﻿
+@model IEnumerable<Actor>
+
+@{
+    ViewData["Title"] = "List of Actors";
+}
+
+<div class="row">
+    <div class="col-md-8  offset-md-2">
+
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>@Html.DisplayNameFor(model => model.profilepicURL)</th>
+                    <th>@Html.DisplayNameFor(model => model.Fname)</th>
+                    <th>@Html.DisplayNameFor(model => model.Lname)</th>
+                    <th>@Html.DisplayNameFor(model => model.age)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+               {
+                 <tr>
+                    <td class="align-middle">
+                        <img class="rounded-circle" src="@item.profilepicURL"  style="max-width: 150px" />
+                    </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => item.Fname)
+                    </td>
+                     <td class="align-middle">
+                        @Html.DisplayFor(modelItem => item.Lname)
+                    </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => item.age)
+                    </td>
+
+                    @if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                       <td class="align-middle">
+                       <a class="btn btn-outline-primary" asp-controller="Actors" asp-action="UpDateOneActorData" asp-route-ActorID="@item.ID"><i ></i>Edit </a> |
+                       <a class="btn btn-outline-info" asp-controller="Actors" asp-action="GetOneActorData" asp-route-ActorID="@item.ID"><i ></i>Details </a> |
+                       <a class="btn btn-danger text-white"  asp-controller="Actors" asp-action="DeleteActor" asp-route-ActorID="@item.ID" ><i ></i>Delete </a>
+                        </td>
+                    }
+
+                    
+                </tr>
+               }
+               
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
+
+@if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <div class="text-white">
+    <a asp-controller="Actors" asp-action="CreateActor" class="btn btn-success "> <i >Add New Actor </i></a>
+    </div>
+}
+
