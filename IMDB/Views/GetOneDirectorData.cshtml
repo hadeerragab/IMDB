@@ -1,0 +1,45 @@
+﻿@model Director
+
+@{
+    ViewData["Title"] = "GET Director DATA";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>DETAILS FOR @Model.Fname </h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+               
+                    <div  class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="profilepicURL" class="control-label"></label>
+                        <input asp-for="profilepicURL" class="form-control" readonly />
+                         <img src="@Model.profilepicURL" height="150px" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Fname" class="control-label"></label>
+                        <input asp-for="Fname" class="form-control" readonly />
+                    </div>
+                     <div class="form-group">
+                        <label asp-for="Lname" class="control-label"></label>
+                        <input asp-for="Lname" class="form-control" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="age" class="control-label"></label>
+                        <input asp-for="age" class="form-control" readonly />
+                    </div>
+
+                    <div class="form-group">
+                       
+                         
+                          <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                    </div>
+               
+            </div>
+        </div>
+    </div>
+</div>
+
