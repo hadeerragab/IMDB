@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Movie>
+
+@{
+    ViewData["Title"] = "List of Actors";
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4  border-primary  mb-3">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header text-white bg-info">
+                            <p class="card-text">
+                                <h5 class="card-title">
+                                    @item.name
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="@item.imageURL" width="100%" alt="@item.name">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <p class="card-text">@item.name</p>
+                             <p class="card-text"><b>Director : </b>@item.Director.Fname</p>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer ">
+                            <p class="card-text">
+
+                                <div>
+                                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                                    <style>
+                                    .fa {
+                                         font-size: 50px;
+                                         cursor: pointer;
+                                         user-select: none;
+                                        }
+                                    .fa:hover {
+                                         color: darkblue;
+                                        }
+                                     </style>
+                                    <i onclick="myFunction(this)" class="fa fa-thumbs-up"></i>
+                                </div>
+                               
+              
+
+                                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                  {
+                                        <a class="btn btn-outline-primary float-right"  asp-controller="Movies" asp-action="UpDateMovie" asp-route-MovieID="@item.ID" >
+                                        <i class="bi bi-eye-fill" ></i> UPDATE
+                                        </a>
+                                  }
+
+                                <a class="btn btn-outline-primary float-right"  asp-controller="Movies" asp-action="GetOneMovieData" asp-route-MovieID="@item.ID" >
+                                    <i class="bi bi-eye-fill" ></i> Show Details
+                                </a>
+                                </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+   <div class="text-white">
+    <a asp-controller="Movies" asp-action="CreateMovie" class="btn btn-success "> <i >Add New Movie</i></a>
+   </div> 
+}
+
+ <script>
+  function myFunction(x) {
+  x.classList.toggle("fa-thumbs-down");
+  }
+  </script>
+
+  
